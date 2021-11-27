@@ -4,7 +4,7 @@ var path = require('path')
 var hbs = require('express-handlebars')
 var Datastore = require('nedb')
 const { query } = require("express")
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 const coll1 = new Datastore({
