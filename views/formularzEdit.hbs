@@ -1,0 +1,100 @@
+<form action="/handle" method="GET">
+    <table>
+        <tr>
+            <th>ubezpieczony:</th>
+            <td><input type="checkbox" name="ubezpieczony"></td>
+        </tr>
+        <tr>
+            <th>benzyna:</th>
+            <td><input type="checkbox" name="benzyna"></td>
+        </tr>
+        <tr>
+            <th>uszkodzony:</th>
+            <td><input type="checkbox" name="uszkodzony"></td>
+        </tr>
+        <tr>
+            <th>napęd 4x4:</th>
+            <td><input type="checkbox" name="naped4x4"></td>
+        </tr>
+    </table>
+
+    <input type="submit" value="DODAJ DO BAZY">
+</form>
+<table>
+    <tr>
+        <th></th>
+        <th>ubezpieczony</th>
+        <th>benzyna</th>
+        <th>uszkodzony</th>
+        <th>napęd 4x4</th>
+        <th></th>
+        <th></th>
+    </tr>
+    {{#each docs}}
+    {{#if (checkId _id ../_id)}}
+    <tr>
+        <form method="get">
+            <td>{{@index}}</td>
+            <td>
+                <select name="ubezpieczony">
+                    <option value="TAK">TAK</option>
+                    <option value="NIE">NIE</option>
+                    <option value="BRAK WYBORU">BRAK WYBORU</option>
+                </select>
+            </td>
+            <td>
+                <select name="benzyna">
+                    <option value="TAK">TAK</option>
+                    <option value="NIE">NIE</option>
+                    <option value="BRAK WYBORU">BRAK WYBORU</option>
+                </select>
+            </td>
+            <td>
+                <select name="uszkodzony">
+                    <option value="TAK">TAK</option>
+                    <option value="NIE">NIE</option>
+                    <option value="BRAK WYBORU">BRAK WYBORU</option>
+                </select>
+            </td>
+            <td>
+                <select name="naped4x4">
+                    <option value="TAK">TAK</option>
+                    <option value="NIE">NIE</option>
+                    <option value="BRAK WYBORU">BRAK WYBORU</option>
+                </select>
+            </td>
+            <input type="hidden" name="_id" value="{{_id}}">
+            <td><input type="submit" formaction="/updateCar" value="UPDATE"></td>
+        </form>
+            <td>
+                <form method="get">
+                    <input type="submit" formaction="/" value="CANCEL">
+                </form>
+            </td>
+    </tr>
+    {{else}}
+    <tr>
+        <form method="get">
+            <td>{{@index}}</td>
+            <td>{{ubezpieczony}}</td>
+            <td>{{benzyna}}</td>
+            <td>{{uszkodzony}}</td>
+            <td>{{naped4x4}}</td>
+            <input type="hidden" name="ubezpieczony" value="{{ubezpieczony}}">
+            <input type="hidden" name="benzyna" value="{{benzyna}}">
+            <input type="hidden" name="uszkodzony" value="{{uszkodzony}}">
+            <input type="hidden" name="naped4x4" value="{{naped4x4}}">
+            <input type="hidden" name="_id" value="{{_id}}">
+            <td><input type="submit" formaction="/removeCar" value="DELETE" onclick="return confirm('Czy usunąć?')"></td>
+        </form>
+            <td>
+                <form method="get">
+                    <input type="hidden" name="_id" value="{{_id}}">
+                    <input type="submit" formaction="/editCar" value="EDIT"></td>
+                </form>
+    </tr>
+    {{/if}}
+    
+
+    {{/each}}
+</table>
